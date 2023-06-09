@@ -7,6 +7,39 @@
     <title>sign in /sign up</title>
 </head>
 <body>
-    
+<div class="main">
+
+    <% if(typeof message !== 'undefined'){ %>
+
+        <div class="snackbar snackbar-show"><h2><%= message  %></h2></div>
+        
+        <% } %>
+    <form method="post" action="/signup" class="container">
+        <h1>SIGN UP</h1>
+        <div style="display:flex;flex-direction:column;margin-bottom: 20px;">
+        <label for="EmployeeID">Employee ID</label>
+        <input name="EmployeeID" type="text"/>
+
+                <label for="password">password</label>
+
+        <input name="password" type="password">
+    </div>
+    <button type="submit">Sign up</button>
+    </form>
+      <form method="post" action="/signin" class="container">
+        <h1>SIGN IN</h1>
+                <div style="display:flex;flex-direction:column;margin-bottom: 20px;">
+
+        <label for="EmployeeID">Employee ID</label>
+        <input name="EmployeeID" type="text" />
+
+        <label for="password">password</label>
+
+        <input name="password" type="password">
+        </div>
+        <button type="submit">Sign in</button>
+
+    </form>
+</div>    
 </body>
 </html>

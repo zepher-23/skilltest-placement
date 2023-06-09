@@ -3,9 +3,9 @@ const Student = require('./student')
 
 const interviewSchema = new mongoose.Schema({
     companyName: { type: String, required: true },
-    students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-    date:{type:Date}
-
+    date: [{ type: String,required:true }],
+    studentId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true }],
+    studentName: [{ type: String, ref: 'student', required: true }]
     
 })
 

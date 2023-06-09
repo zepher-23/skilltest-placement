@@ -20,7 +20,7 @@ Student
 
 course
 -studentID
--dsa
+-DSA 
 -webD
 -react
 

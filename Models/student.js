@@ -9,7 +9,7 @@ const studentSchema = new mongoose.Schema({
     }],
     college: { type: String, required: true },
     batch: { type: Number, required: true },
-    status: { type: Boolean, required: true },
+    status: { type: String, enum:['placed','not placed'], required: true , default:'not placed'},
     dsa: { type: Number },
     webd: { type: Number },
     react:{type:Number}
