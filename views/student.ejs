@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Student List</title>
+</head>
+<body>
+    <div class="main">
+         <% if(typeof message !== 'undefined'){ %>
+
+         <div class="snackbar-list snackbar-show "style="top:30px;right:50px;">
+           <h2><%= message %></h2>
+         </div>
+
+         <% } %>
+<div class="nav"><h1>Student List</h1></div>
+
+<div class="container" style="max-height: 70vh;overflow-y: scroll;margin-top:150px;">
+   <h4>Student List</h4> 
+    <div class="student-list">
+         <div style="display:flex;flex-direction: row; width:100%;justify-content: space-around;height:50px">
+           <h4> Name</h4>
+           <h4> College</h4>
+           <h4> Batch</h4>
+           <h4> Status</h4>
+           <h4> DSA</h4>
+           <h4>WebD</h4>
+           <h4> React</h4>
+
+         </div>
+         <hr style="height:1px;color:black;width:100%;margin:0px;">
+        <% if(typeof list !== 'undefined'){ %>
+
+
+    
+           
+                <% Object.keys(list).map((item)=>{ %>
+                    <div style="display:flex;flex-direction: row; width:100%;justify-content: space-around;height:50px">
+                    <h5> <%= list[item].name  %></h5>
+                    <h5> <%= list[item].college  %></h5>
+                    <h5> <%= list[item].batch  %></h5>
+                    <h5> <%= list[item].status  %></h5>
+                    <h5> <%= list[item].dsa  %></h5>
+                    <h5> <%= list[item].webd  %></h5>
+                    <h5> <%= list[item].react  %></h5>
+                    
+
+                    </div><hr style="height:1px;color:black;width:100%;margin:0px;">
+               <%   }) %>
+                
+                <% } %>
+            
+       
+
+    </div>
+
+</div>
+<div class="container" style="margin-top:150px;">
+    <form action="/addstudent" method="post" style="display: flex;flex-direction: column;justify-content: space-between;align-items: center;">
+        <h4>Student Details</h4>
+        <div style="display:flex;flex-direction:column;overflow-y:scroll;max-height:50vh;">
+        <label for="name">Name</label>
+        <input name="name" type="text" required/>
+
+        <label for="college">College</label>
+        <input name="college" type="text" required />
+
+        <label for="batch">Batch ( 1 to 10 batches )</label>
+        <input name="batch" type="number"min="1" max="10" required />
+
+        <label for="status">Status</label>
+
+        <div id="status" style="display: flex;flex-direction: row;">
+        <label for="placed" style="font-size: 11px;">Placed</label>
+
+        <input name="status" type="radio" required value="placed" />
+        <label for="not placed" style="font-size: 11px;">Not Placed</label>
+        <input name="status" type="radio" required value="not placed" />
+</div>
+        <label for="dsa">DSA Score</label>
+        <input name="dsa" type="number" min="0" max="100" />
+
+        <label for="webd"> WebD Score</label>
+        <input name="webd" type="number" min="0" max="100" />
+
+        <label for="react">React Score</label>
+        <input name="react" type="number" min="0" max="100" />
+    </div>
+
+        <button type="submit">Add Student</button>
+
+
+    </form>
+
+</div>
+
+    </div>
+</body>
+</html>

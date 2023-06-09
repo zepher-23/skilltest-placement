@@ -1,0 +1,39 @@
+completion time 12 hours
+
+requirement
+ -Interface for employees to fill data into database and download in CSV format
+..................................................
+
+Database Structure
+
+employee
+-id
+-password
+
+Student
+-interviewID [....]
+-name
+-batch
+-college
+-
+-status [placed / not placed]
+
+course
+-studentID
+-DSA 
+-webD
+-react
+
+interview
+-studentID [......]
+-company name
+-date
+
+results
+-studentID
+-company name
+-result [pass, fail, on hold, not attempted]
+
+
+
+	

@@ -1,0 +1,28 @@
+{
+  "name": "skilltest1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently \"nodemon server.js\" \"browser-sync start --config bs-config.js\"",
+    "start-mongodb": "mongod",
+    "start-server": "nodemon serve.js | browser-sync start --config bs-config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zepher",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "ejs-layout": "^1.0.15",
+    "express": "^4.18.2",
+    "mongod": "^2.0.0",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.2",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "concurrently": "^8.0.1"
+  }
+}
