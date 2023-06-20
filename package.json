@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    
     "start": "concurrently \"nodemon server.js\" \"browser-sync start --config bs-config.js\"",
     "start-mongodb": "mongod",
     "start-server": "nodemon serve.js | browser-sync start --config bs-config.js",
@@ -13,6 +12,7 @@
   "author": "zepher",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "ejs": "^3.1.9",
     "ejs-layout": "^1.0.15",

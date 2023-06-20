@@ -1,13 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = require('../Models/employee')
+const bcrypt = require('bcrypt')
 
 // Funtion to create new employee
-const createUser = (req, res) => {
+const createUser =async (req, res) => {
 
     const { EmployeeID, password } = req.body
 
-    if (checkUserExists(EmployeeID)) {
+    if (await checkUserExists(EmployeeID)) {
         res.render('index', { message: 'User exists ! please sign in' })
     }
     else {
@@ -38,13 +39,13 @@ const userLogin =async (req, res) => {
     if (await checkUserExists(EmployeeID)) {
         const user = await User.findOne({ employeeID: EmployeeID })
        
-        if (await user.password == password) {
+        const passwordMatch = await bcrypt.compare(password, user.password);
 
-            res.redirect('dashboard')
-        }
-        else {
-            res.render('index',{ message:'Password does not match' } )
-        }
+    if (passwordMatch) {
+      res.redirect('dashboard');
+    } else {
+      res.render('index', { message: 'Password does not match' });
+    }
     }
     else {
 
@@ -52,12 +53,17 @@ const userLogin =async (req, res) => {
     }
 }
 
+
 // Helper function to check if employee exists
 const checkUserExists = async (employeeID) => {
     try {
         const user = await User.findOne({ employeeID })
-        //  console.log(await user)
-        return user !== null;
+        console.log(await user)
+        if (user !== null)
+            return true;
+        else
+            return false;
+        
     }
     catch (err) {
         console.log('error checking user:', err);
