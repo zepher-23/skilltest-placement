@@ -8,30 +8,63 @@
 </head>
 <body>
     <div class="main">
+      <!-- EJS code for checking and viewing if a message has been attached
+with the response inside a snackbar -->
          <% if(typeof message !== 'undefined'){ %>
 
          <div class="snackbar-list snackbar-show "style="top:30px;right:50px;">
            <h2><%= message %></h2>
          </div>
          <% } %>
-<div class="nav"><h1>Interview List</h1></div>
+<div class="nav"><h1 style="flex-grow: 1;">Interview List</h1><a href="/dashboard" style="padding:50px;">Dashboard</a></div>
 
-<div class="container" style="max-height: 70vh;overflow-y: scroll;margin-top:150px;">
+<div class="container" style="max-height: 70vh;margin-top:150px;max-width: 70vw;">
    <h4>Interview List</h4> 
-    <div class="student-list">
+    <div class="student-list" style="display: flex;flex-direction: column;overflow-y: scroll;overflow-x: hidden;">
          <div style="display:flex;flex-direction: row; width:100%;justify-content: space-around;height:50px">
            <h4> Company</h4>
            <h4> Date</h4>
-           <h4> No.Students</h4>
-          
-
+           <h4> Student Name</h4>
+           <h4> Status</h4>
          </div>
          <hr style="height:1px;color:black;width:100%;margin:0px;">
-        <% interviewList.forEach(item=>{ %>
-            <h5> <%= item.companyName %> </h5>
-            <h5> <%= item.date %> </h5>
-            <h5> <%= item.studentName %> </h5>
+         <div style="display:flex;flex-direction: column; width:100%;justify-content: space-around;align-items: center;">
+        <!-- Iterates over the interview list and views it in the page  -->
+          <% interviewList.forEach(item=>{ %>
+            <div style="display: flex;flex-direction: row;width:100%;justify-content: space-around;align-items: center;">
+            <h4> <%= item.companyName %> </h4>
+            <div style="display: flex;flex-direction: column;margin-left: 20px;"><% (item.date).forEach(dateItem =>{%>
+                <h5 style="padding:10px;margin-top:20px;"><%= dateItem %>  </h5> 
+                <% })%> </div>
+             <div style="display: flex;flex-direction: column;">
+                <% (item.studentName).forEach((studentItem,index )=>{%>
+               <div style="display: flex;flex-direction: row;">
+
+                 <h5 style="padding:10px;margin-left: 30px;"><%= studentItem %></h5>
+                <form action="/interviewlist/changeStatus" method="POST">
+                 <select name="status" style="margin:10px;width: auto;" required>
+                <option value="" disabled selected>Select Status</option>
+
+                    <option value="pass|<%=item.companyName %>|<%=item.date[index]%>|<%=studentItem %>">Pass</option>
+                    <option value="fail|<%=item.companyName %>|<%=item.date[index] %>|<%=studentItem %>">Fail</option>
+                    <option value="on hold|<%=item.companyName %>|<%=item.date[index] %>|<%=studentItem %>">On Hold</option>
+                    <option value="did not attempt|<%=item.companyName %>|<%=item.date[index] %>|<%=studentItem %>">Did not Attempt</option>
+                 </select>
+
+                  <button style="min-width: 50px;padding:10px;">Update</button>
+                </form>
+</div>  
+
+               <% })%>
+             </div>
+             <!-- <div style="display: flex;flex-direction: column;"><% (item.studentId).forEach(itemId =>{%>
+               <% })%>
+             </div> -->
+            
+            </div>
+            <hr style="height:1px;color:black;width:100%;margin:0px;">
                <%  })  %>
+               </div>
                 
                
             
@@ -40,7 +73,8 @@
     </div>
 
 </div>
-<div class="container" style="margin-top:150px;">
+<div class="container" style="margin-top:150px;"> 
+  <!-- Form to create new interview -->
     <form action="/addinterview" method="post" style="display: flex;flex-direction: column;justify-content: space-between;align-items: center;">
         <h4>Create Interview</h4>
         <div style="display:flex;flex-direction:column;overflow-y:scroll;max-height:50vh;">

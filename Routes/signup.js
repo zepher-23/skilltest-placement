@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/userController')
 
-// Define your routes for the '/signup' path
+
+ // Handle GET request for Index page
 router.get('/', (req, res) => {
-  // Handle GET request for '/signup' route
+ 
   res.render('index')
 });
 
-
+// Handle Post request of '/signup' and '/signin' route
 router.post('/', (req, res) => {
     const actionUrl = req.originalUrl;
     if (actionUrl == '/signup') {

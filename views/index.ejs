@@ -4,16 +4,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>sign in /sign up</title>
+    <title>sign in | sign up</title>
 </head>
 <body>
 <div class="main">
-
-    <% if(typeof message !== 'undefined'){ %>
+<!-- EJS code for checking and viewing if a message has been attached
+with the response inside a snackbar -->
+    <% if(typeof message !== 'undefined') { %>
 
         <div class="snackbar snackbar-show"><h2><%= message  %></h2></div>
         
         <% } %>
+
+        <!--  Form to handle signup  -->
     <form method="post" action="/signup" class="container">
         <h1>SIGN UP</h1>
         <div style="display:flex;flex-direction:column;margin-bottom: 20px;">
@@ -26,6 +29,7 @@
     </div>
     <button type="submit">Sign up</button>
     </form>
+    <!--  Form to handle signin -->
       <form method="post" action="/signin" class="container">
         <h1>SIGN IN</h1>
                 <div style="display:flex;flex-direction:column;margin-bottom: 20px;">

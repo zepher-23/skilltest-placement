@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs | React/Node</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+     <div class="main" style="overflow-y: scroll;">
+        <!-- EJS code for checking and viewing if a message has been attached
+with the response inside a snackbar -->
+         <% if(typeof message !== 'undefined'){ %>
+
+
+         <div class="snackbar-list snackbar-show "style="top:30px;right:50px;">
+           <h2> <%= message %></h2>
+         </div>
+         <% } %>
+<div class="nav">
+    <h1 style="flex-grow: 1;">React/NodeJS Jobs in India</h1>
+    <a href="/dashboard" style="padding:50px;">Dashboard</a>
+</div>
+
+<!-- Views all the jobs recieved from the server using EJS  -->
+<div class="job_list" style="max-height: 70vh;display: flex;flex-direction: column;margin-top: 100px;">
+    <% for(let i=0;i<jobArr.length;i++){ %>
+    <div class="container" style="max-width: 80vw;margin: 30px;align-items: start;">
+     <a href=<%= jobArr[i].redirect_url  %>> <h3 class="jobTitle"><%= jobArr[i].title %></h3></a> 
+     <h4 style="margin: 0px;"><%= jobArr[i].company  %></h4> 
+        <p><%= jobArr[i].description  %></p>
+         <p><%= jobArr[i].location  %></p>
+    </div>
+    <% } %>
+</div>
+     </div>
+</body>
+</html>

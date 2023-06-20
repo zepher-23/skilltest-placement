@@ -4,7 +4,7 @@ const  mongoose = require('mongoose');
 const url = 'mongodb://127.0.0.1:27017/users';
 
 
-
+// Function to establish mongodb connection
 const connectDb = async () => {
     try {
         await mongoose.connect(url, {

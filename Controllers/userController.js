@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = require('../Models/employee')
+const { authenticate } = require('./authenticate')
 
-// mongoose.set('debug',true)
+// Funtion to create new employee
 const createUser = (req, res) => {
 
     const { EmployeeID, password } = req.body
@@ -29,6 +30,8 @@ const createUser = (req, res) => {
     }
 }
 
+
+// Function to handle Employeen login 
 const userLogin =async (req, res) => {
    
     const {EmployeeID,password} = req.body;
@@ -41,7 +44,7 @@ const userLogin =async (req, res) => {
             res.redirect('dashboard')
         }
         else {
-            res.render('index',{message:'Password does not match'})
+            res.render('index',{ message:'Password does not match' } )
         }
     }
     else {
@@ -50,17 +53,16 @@ const userLogin =async (req, res) => {
     }
 }
 
-
+// Helper function to check if employee exists
 const checkUserExists = async (employeeID) => {
     try {
         const user = await User.findOne({ employeeID })
         //  console.log(await user)
         return user !== null;
-
     }
     catch (err) {
         console.log('error checking user:', err);
-        return false
+        return false;
     }
 }
 

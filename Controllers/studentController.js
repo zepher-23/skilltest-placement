@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const router = express.Router();
 const Student = require('../Models/student')
 
+// function to get list of all students
 const getList = async (req, res) => {
 
     const list = await Student.find();
@@ -15,9 +16,11 @@ const getList = async (req, res) => {
        
 }
 
-const addStudent =async (req, res) => {
+
+// Function to add new student to the list
+const addStudent = async (req, res) => {
     const { name, college, batch, status, dsa, webd, react } = req.body
-    const student =await new Student({
+    const student = await new Student({
         name,college,batch,status,dsa,webd,react
     })
 

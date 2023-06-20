@@ -7,8 +7,9 @@
     <title>Dashboard</title>
 </head>
 <body>
+  <!-- Contains html for viewing viewable options -->
     <div class="main">
-        <div class="container">
+        <div class="container"  style="display: flex;flex-direction: row;min-width: 300px;">
             <div class="list">
                 <form method="get" action="/studentlist">
                <button type="submit">Student List</button>
@@ -25,6 +26,16 @@
                  <button type="submit">Result List</button>
                </form>
             </div>
+            <div class="list">
+              <form method="get" action="/resultlist/downloadcsv">
+                <button type="submit">Download CSV File</button>
+              </form>
+            </div>
+             <div class="list">
+               <form method="get" action="/jobs">
+                 <button type="submit">Jobs</button>
+               </form>
+             </div>
         </div>
     </div>
     
