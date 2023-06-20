@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = require('../Models/employee')
-const { authenticate } = require('./authenticate')
 
 // Funtion to create new employee
 const createUser = (req, res) => {

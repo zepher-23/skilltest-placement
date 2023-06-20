@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    
     "start": "concurrently \"nodemon server.js\" \"browser-sync start --config bs-config.js\"",
     "start-mongodb": "mongod",
     "start-server": "nodemon serve.js | browser-sync start --config bs-config.js",
