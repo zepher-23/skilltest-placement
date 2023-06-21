@@ -89,7 +89,8 @@ with the response inside a snackbar -->
           <option value="" disabled selected>Select a student</option>
 
         <% studentList.forEach(item=>{ %>
-            <option value=<%= item.id +'|'+ item.name %>> <%= item.name  %></option>
+          <%= console.log(item.name) %>
+            <option value=<%= item.id +'|'+ encodeURIComponent(item.name) %>> <%= item.name  %></option>
     
 <% }) %>
       </select>

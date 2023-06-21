@@ -20,6 +20,7 @@ const getList = async (req, res) => {
 // Function to add new student to the list
 const addStudent = async (req, res) => {
     const { name, college, batch, status, dsa, webd, react } = req.body
+    console.log(dsa)
     const student = await new Student({
         name,college,batch,status,dsa,webd,react
     })

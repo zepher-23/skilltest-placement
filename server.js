@@ -44,12 +44,12 @@ app.get('/dashboard',authenticate, (req, res) => {
     
 })
 app.use('/studentlist',authenticate, studentList)
-app.use('/addstudent',authenticate, studentList)
+app.use('/addstudent', studentList)
 app.use('/interviewlist',authenticate, interviewList)
-app.use('/addinterview',authenticate ,interviewList)
-app.use('/interviewlist/changestatus',authenticate,interviewList)
+app.use('/addinterview' ,interviewList)
+app.use('/interviewlist/changestatus' ,interviewList)
 app.use('/resultlist',authenticate, result)
-app.use('/resultlist/downloadcsv',authenticate, result)
+app.use('/resultlist/downloadcsv', result)
 
 // Fetch and render available jobs from Adzuna API
 app.get('/jobs', async (req, res) => {
