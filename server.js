@@ -9,7 +9,14 @@ const signUp = require('./Routes/signup')
 const studentList = require('./Routes/studentList')
 const interviewList = require('./Routes/interviewList')
 const result = require('./Routes/result')
+const authenticate = require('./Controllers/authenticate')
+const session = require('express-session')
 
+app.use(session({
+ secret: 'your-secret-key', // Specify a secret key for session encryption
+  resave: false,
+  saveUninitialized: true
+}))
 
 
 // Code for setting render engine and serving static files 
@@ -32,16 +39,17 @@ app.get('/', (req, res) => {
 })
 app.use('/signup', signUp); 
 app.use('/signin',signUp)
-app.get('/dashboard', (req, res) => {
-    res.render('dashboard',{})
+app.get('/dashboard',authenticate, (req, res) => {
+    res.render('dashboard', {})
+    
 })
-app.use('/studentlist', studentList)
-app.use('/addstudent', studentList)
-app.use('/interviewlist', interviewList)
-app.use('/addinterview', interviewList)
-app.use('/interviewlist/changestatus',interviewList)
-app.use('/resultlist', result)
-app.use('/resultlist/downloadcsv', result)
+app.use('/studentlist',authenticate, studentList)
+app.use('/addstudent',authenticate, studentList)
+app.use('/interviewlist',authenticate, interviewList)
+app.use('/addinterview',authenticate ,interviewList)
+app.use('/interviewlist/changestatus',authenticate,interviewList)
+app.use('/resultlist',authenticate, result)
+app.use('/resultlist/downloadcsv',authenticate, result)
 
 // Fetch and render available jobs from Adzuna API
 app.get('/jobs', async (req, res) => {
@@ -71,7 +79,16 @@ app.get('/jobs', async (req, res) => {
     })
     
 })
-
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.sendStatus(500);
+    } else {
+      res.render('index',{message:'User logged out'});
+    }
+  });
+});
 
 // Server listening on port 3000
 const port = 3000;

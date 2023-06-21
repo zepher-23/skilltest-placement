@@ -3,53 +3,66 @@ const mongoose = require('mongoose')
 const User = require('../Models/employee')
 const bcrypt = require('bcrypt')
 
+
 // Funtion to create new employee
 const createUser =async (req, res) => {
 
     const { EmployeeID, password } = req.body
-
-    if (await checkUserExists(EmployeeID)) {
-        res.render('index', { message: 'User exists ! please sign in' })
+    if (!EmployeeID || !password) {
+        res.render('index', { message: 'signup field cannot be empty' })
     }
     else {
-    
-        const user = new User({
-            employeeID: EmployeeID,
-            password: password
-        });
 
-        user.save()
-            .then(() => {
-                console.log('user created')
-            })
-            .catch((err) => {
-                console.error(err);
-                // Handle the error
+        if (await checkUserExists(EmployeeID)) {
+            res.render('index', { message: 'User exists ! please sign in' })
+        }
+        else {
+    
+            const user = new User({
+                employeeID: EmployeeID,
+                password: password
+       
             });
-        res.render('index', { message: "User Created !, Sign in" })
+            user.save()
+                .then(() => {
+                    console.log('user created')
+                })
+                .catch((err) => {
+                    console.error(err);
+                    // Handle the error
+                });
+            res.render('index', { message: "User Created !, Sign in" })
+        }
     }
 }
 
 
-// Function to handle Employeen login 
+// Function to handle Employee login 
 const userLogin =async (req, res) => {
    
-    const {EmployeeID,password} = req.body;
- 
-    if (await checkUserExists(EmployeeID)) {
-        const user = await User.findOne({ employeeID: EmployeeID })
-       
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (passwordMatch) {
-      res.redirect('dashboard');
-    } else {
-      res.render('index', { message: 'Password does not match' });
-    }
+    const { EmployeeID, password } = req.body;
+    if (!EmployeeID || !password) {
+        res.render('index', { message: 'sign in field cannot be empty' })
     }
     else {
+ 
+        if (await checkUserExists(EmployeeID)) {
+            const user = await User.findOne({ employeeID: EmployeeID })
+       
+            const passwordMatch = await bcrypt.compare(password, user.password);
 
-        res.render('index', { message: 'Invalid User !' })
+            if (passwordMatch) {
+                // Set session id after successful login
+                req.session.userId = '12345'
+           
+                res.redirect('dashboard');
+            } else {
+                res.render('index', { message: 'Password does not match' });
+            }
+        }
+        else {
+            res.render('index', { message: 'Invalid User !' })
+        }
     }
 }
 
@@ -72,3 +85,4 @@ const checkUserExists = async (employeeID) => {
 }
 
 module.exports = { createUser, userLogin }
+

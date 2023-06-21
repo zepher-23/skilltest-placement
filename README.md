@@ -70,6 +70,9 @@ The static files are monitored by `browser-sync` tool to reflect changes in EJS 
 
 NOTE: Incase the page gets stuck in loading, reload the page.
 
+Employee password is hashed and stored in the database using `bcrypt`.
+Session is managed by `express-session`.
+
 Navigating the web app
 
 1. Index page
