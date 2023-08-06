@@ -1,7 +1,8 @@
 const  mongoose = require('mongoose');
 
 // MongoDB connection URL
-const url = 'mongodb://127.0.0.1:27017/users';
+const url =
+  'mongodb+srv://auth2:erINp3lhkFOjf1g8@cluster0.nmn5cih.mongodb.net/placement?retryWrites=true&w=majority';
 
 
 // Function to establish mongodb connection
