@@ -11,7 +11,7 @@ const interviewList = require('./Routes/interviewList')
 const result = require('./Routes/result')
 const authenticate = require('./Controllers/authenticate')
 const session = require('express-session')
-
+const fetch = require('node-fetch')
 app.use(session({
  secret: 'your-secret-key', // Specify a secret key for session encryption
   resave: false,
