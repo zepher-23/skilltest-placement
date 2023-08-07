@@ -11,7 +11,6 @@ const interviewList = require('./Routes/interviewList')
 const result = require('./Routes/result')
 const authenticate = require('./Controllers/authenticate')
 const session = require('express-session')
-const fetch = require('node-fetch')
 app.use(session({
  secret: 'your-secret-key', // Specify a secret key for session encryption
   resave: false,
@@ -53,31 +52,35 @@ app.use('/resultlist/downloadcsv', result)
 
 // Fetch and render available jobs from Adzuna API
 app.get('/jobs', async (req, res) => {
-    const url ='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=c637f7a8&app_key=3712b0edd684adfbb39e145f69685641&results_per_page=30&what_or=react%20node'
-    fetch(url).then(async data => {
-        let jobArr = []
-        let jobObj={}
-        const jobs = await data.json()
-        const jobList = jobs.results
-        for (let i = 0; i < jobList.length; i++){
-            jobObj = {
-                company: jobList[i].company.display_name,
-                redirect_url: jobList[i].redirect_url,
-                title: jobList[i].title,
-                description: jobList[i].description,
-                location:jobList[i].location.display_name
-            }
-            jobArr.push(jobObj)
+  const url =
+    'https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=c637f7a8&app_key=3712b0edd684adfbb39e145f69685641&results_per_page=30&what_or=react%20node';
+  const fetch = await import('node-fetch'); // Use dynamic import
 
-        
-        }
-      
-        res.render('jobs', {jobArr})
-    }).catch(err => {
-        console.log("Error viewing Jobs", err);
-        res.send('Cannot view Jobs due to internal error, Sorry for the inconvenience!')
+  fetch.default(url)
+    .then(async (data) => {
+      let jobArr = [];
+      let jobObj = {};
+      const jobs = await data.json();
+      const jobList = jobs.results;
+      for (let i = 0; i < jobList.length; i++) {
+        jobObj = {
+          company: jobList[i].company.display_name,
+          redirect_url: jobList[i].redirect_url,
+          title: jobList[i].title,
+          description: jobList[i].description,
+          location: jobList[i].location.display_name,
+        };
+        jobArr.push(jobObj);
+      }
+
+      res.render('jobs', {jobArr});
     })
-    
+    .catch((err) => {
+      console.log('Error viewing Jobs', err);
+      res.send(
+        'Cannot view Jobs due to internal error, Sorry for the inconvenience!'
+      );
+    });
 })
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
